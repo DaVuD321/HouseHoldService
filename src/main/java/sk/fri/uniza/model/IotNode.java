@@ -1,11 +1,32 @@
 package sk.fri.uniza.model;
 
-import javax.persistence.*;
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.*;
+import java.util.List;
+
+@org.hibernate.annotations.NamedQueries({
+        @org.hibernate.annotations.NamedQuery(name = "IotNode_findAll",
+                query = "from IotNode"),
+
+        @org.hibernate.annotations.NamedQuery(name = "IotNode_findByHouseHoldId",
+                query = "from IotNode where id = :houseHoldId"),
+
+})
+
+@Entity
 public class IotNode {
 
+    @Id
+    @ApiModelProperty(accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Long id;
+
+    @NotEmpty
+    @ApiModelProperty(example = "Fero")
     private String Name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private HouseHold houseHold;
 
     public Long getId() {
@@ -30,5 +51,18 @@ public class IotNode {
 
     public void setHouseHold(HouseHold houseHold) {
         this.houseHold = houseHold;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IotNode iotNode = (IotNode) o;
+        return id != null ? id.equals(iotNode.id) : iotNode.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

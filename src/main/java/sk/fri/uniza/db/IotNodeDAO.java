@@ -6,7 +6,7 @@ import sk.fri.uniza.model.IotNode;
 
 import java.util.List;
 
-public class IotNodeDAO extends AbstractDAO<IotNodeDAO> {
+public class IotNodeDAO extends AbstractDAO<IotNode> {
     /**
      * Creates a new DAO with a given session provider.
      *
@@ -21,22 +21,20 @@ public class IotNodeDAO extends AbstractDAO<IotNodeDAO> {
         return iotNode;
     }
 
-    public IotNode findById(Long id) {
-        //TODO Doplniť
-        return null;
+    public IotNode findById(Long ID) {
+        return get(ID);
     }
 
     public IotNode update(IotNode iotNode) {
-        //TODO Doplniť
-        return null;
+        return (IotNode) currentSession().merge(iotNode);
     }
 
     public List<IotNode> findByHouseHold(Long houseHoldId) {
-        //TODO Doplniť
-        return null;
+        return list(namedQuery("IotNode_findByHouseHoldId")
+                .setParameter("houseHoldId", houseHoldId));
     }
 
     public List<IotNode> allIotNodes() {
-        return null;
+        return list(namedQuery("IotNode_findAll"));
     }
 }
