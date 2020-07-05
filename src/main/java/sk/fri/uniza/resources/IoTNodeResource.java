@@ -48,7 +48,7 @@ public class IoTNodeResource {
     @PUT /*JAX-RS*/
     @Path("{id}") /*JAX-RS*/
     @UnitOfWork //Otvorí novú hibernate session // Dropwizard
-    @ApiOperation(value = "Úprava existujúcej domácnosti")
+    @ApiOperation(value = "Úprava IOTnode")
     public IotNode updateIotNode(IotNode iotNode) {
         return iotNodeDAO.update(iotNode);
     }
@@ -56,14 +56,14 @@ public class IoTNodeResource {
     @GET /*JAX-RS*/
     @Path("{id}") /*JAX-RS*/
     @UnitOfWork //Otvorí novú hibernate session // Dropwizard
-    @ApiOperation(value = "Úprava existujúcej domácnosti")
+    @ApiOperation(value = "Nájde IOTnode na základe ID")
     public IotNode findIotNode(@PathParam("id") Long id) {
         return iotNodeDAO.findById(id);
     }
 
     @GET
     @UnitOfWork //Otvorí novú hibernate session
-    @ApiOperation(value = "Zoznam všetkých domácnosti")
+    @ApiOperation(value = "Zoznam všetkých IOTnodes")
     public List<IotNode> allIotNodes() {
         return iotNodeDAO.allIotNodes();
     }
